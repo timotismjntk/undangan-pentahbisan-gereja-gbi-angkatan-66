@@ -1,0 +1,43 @@
+name: Deploy Vite React App to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # or your default branch
+ 
+permissions:
+  id-token: write 
+  contents: write 
+  pages: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production  # Make sure to specify the environment here
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Vite GitHub Pages Deployer
+        uses: skywarth/vite-github-pages-deployer@v1.5.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          public_base_path: /undangan-pentahbisan-gereja-gbi-angkatan-66/  # Replace with your repository name
+          build_path: ./dist
+          install_phase_node_env: dev
+          build_phase_node_env: production
+          package_manager: npm
+          artifact_name: github-pages
+          debug_mode: false
+          working_path: ./
