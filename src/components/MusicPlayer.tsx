@@ -3,13 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Music, Volume2, VolumeX } from 'lucide-react';
 
 const MusicPlayer = () => {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     // Create audio element
-    audioRef.current = new Audio('./src/audio/backsound.mp3');
+    audioRef.current = new Audio('https://raw.githubusercontent.com/timotismjntk/joyful-christmas-invite/refs/heads/main/src/audio/backsound.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.6;
 
